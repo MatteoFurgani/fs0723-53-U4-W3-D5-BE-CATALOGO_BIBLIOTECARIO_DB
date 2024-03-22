@@ -47,6 +47,10 @@ public class Autore {
         this.cognome = cognome;
     }
 
+    public void add(Autore autore) {
+        System.out.println("Autore aggiunto con successo");
+    }
+
     @Override
     public String toString() {
         return "Autore{" +
