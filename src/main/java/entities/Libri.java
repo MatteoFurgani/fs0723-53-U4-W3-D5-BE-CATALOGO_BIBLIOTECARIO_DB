@@ -5,22 +5,22 @@ import jakarta.persistence.Entity;
 
 @Entity
 public class Libri extends Pubblicazione {
-    private String autore;
+    private Autore autore;
     private String genere;
 
     public Libri(){}
 
-    public Libri(String codiceISBN, String titolo, int annoPubblicazione, int numeroPagine, String autore, String genere) {
-        super(codiceISBN, titolo, annoPubblicazione, numeroPagine);
+    public Libri(String codiceISBN, String titolo, int annoPubblicazione, int numeroPagine, Autore autore, String genere) {
+        super(codiceISBN, titolo, annoPubblicazione, numeroPagine, autore);
         this.autore = autore;
         this.genere = genere;
     }
 
-    public String getAutore() {
+    public Autore getAutore() {
         return autore;
     }
 
-    public void setAutore(String autore) {
+    public void setAutore(Autore autore) {
         this.autore = autore;
     }
 

@@ -1,8 +1,6 @@
 package entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 
 @Entity
 public class Riviste extends Pubblicazione {
@@ -12,9 +10,10 @@ public class Riviste extends Pubblicazione {
 
     public Riviste() {}
 
-    public Riviste(String codiceISBN, String titolo, int annoPubblicazione, int numeroPagine, Periodicita periodicita) {
-        super(codiceISBN, titolo, annoPubblicazione, numeroPagine);
+    public Riviste(String codiceISBN, String titolo, int annoPubblicazione, int numeroPagine, Periodicita periodicita, Autore autore) {
+        super(codiceISBN, titolo, annoPubblicazione, numeroPagine, autore);
         this.periodicita = periodicita;
+        this.autore = autore;
     }
 
     public Periodicita getPeriodicita() {
@@ -36,5 +35,4 @@ public class Riviste extends Pubblicazione {
                 '}';
     }
 }
-
 

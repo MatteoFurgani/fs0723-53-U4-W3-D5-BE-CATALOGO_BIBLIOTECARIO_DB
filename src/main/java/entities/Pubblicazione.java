@@ -2,36 +2,36 @@ package entities;
 
 import jakarta.persistence.*;
 
-
-
 @Entity
 @Table(name = "Pubblicazioni")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Pubblicazione {
+public abstract class Pubblicazione {
     @Id
-    private String codiceISBN;
+    protected String codiceISBN;
 
-    private String titolo;
-    private int annoPubblicazione;
-    private int numeroPagine;
+    protected String titolo;
+    protected int annoPubblicazione;
+    protected int numeroPagine;
+
+    @ManyToOne
+    @JoinColumn(name = "autore_id")
+    protected Autore autore;
 
     public Pubblicazione() {
     }
 
-    public Pubblicazione(String codiceISBN, String titolo, int annoPubblicazione, int numeroPagine) {
+    public Pubblicazione(String codiceISBN, String titolo, int annoPubblicazione, int numeroPagine, Autore autore) {
         this.codiceISBN = codiceISBN;
         this.titolo = titolo;
         this.annoPubblicazione = annoPubblicazione;
         this.numeroPagine = numeroPagine;
+        this.autore = autore;
     }
 
     public String getCodiceISBN() {
         return codiceISBN;
     }
 
-    public void setCodiceISBN(String codiceISBN) {
-        this.codiceISBN = codiceISBN;
-    }
 
     public String getTitolo() {
         return titolo;
@@ -57,6 +57,14 @@ public class Pubblicazione {
         this.numeroPagine = numeroPagine;
     }
 
+    public Autore getAutore() {
+        return autore;
+    }
+
+    public void setAutore(Autore autore) {
+        this.autore = autore;
+    }
+
     @Override
     public String toString() {
         return "Pubblicazione{" +
@@ -64,6 +72,7 @@ public class Pubblicazione {
                 ", titolo='" + titolo + '\'' +
                 ", annoPubblicazione=" + annoPubblicazione +
                 ", numeroPagine=" + numeroPagine +
+                ", autore=" + autore +
                 '}';
     }
 }
