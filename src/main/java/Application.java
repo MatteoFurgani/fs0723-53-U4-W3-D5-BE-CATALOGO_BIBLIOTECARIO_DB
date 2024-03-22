@@ -38,21 +38,60 @@ public class Application {
 
         //-----------------------------AGGIUNTA ELEMENTO------------------------------------
         try {
-            System.out.println("Aggiunta di un elemento al catalogo...");
 
             Autore autore = new Autore("Marco", "Marchi");
 
 
-            Riviste rivista = new Riviste("R22", "Titolo Rivista", 2024, 100, Periodicita.MENSILE, autore);
-            rivista.getAutore().add(autore);
+            Libri libro = new Libri("L123", "Titolo Libro", 2024, 200, autore, "Genere");
+
 
             Archivio archivio = new Archivio(emf);
-            archivio.aggiungiElementoCatalogo(rivista);
+
+
+            archivio.aggiungiElementoCatalogo(libro);
 
             System.out.println("Elemento aggiunto al catalogo con successo");
         } catch (Exception e) {
             System.err.println("Errore durante l'aggiunta dell'elemento al catalogo: " + e.getMessage());
+        } finally {
+            emf.close();
         }
+
+       //-----------------------------RIMOZIONE ELEMENTO------------------------------------
+
+        try {
+            Archivio archivio = new Archivio(emf);
+
+            String codiceISBN = "L123";
+
+            System.out.println("Rimozione dell'elemento con codice ISBN: " + codiceISBN);
+
+            archivio.rimuoviElementoCatalogoByISBN(codiceISBN);
+        } catch (Exception e) {
+            System.err.println("Errore durante la rimozione dell'elemento: " + e.getMessage());
+        } finally {
+            emf.close();
+        }
+
+        //-----------------------------RICERCA ELEMENTO PER IBSN------------------------------------
+
+        try {
+            Archivio archivio = new Archivio(emf);
+
+            String codiceISBN = "6";
+
+            Pubblicazione elementoTrovato = archivio.ricercaPerISBN(codiceISBN);
+
+            if (elementoTrovato != null) {
+                System.out.println("Elemento trovato nel catalogo:");
+                System.out.println(elementoTrovato);
+            } else {
+                System.out.println("Nessun elemento trovato nel catalogo con il codice ISBN specificato.");
+            }
+        } finally {
+            emf.close();
+        }
+
 
 
 
