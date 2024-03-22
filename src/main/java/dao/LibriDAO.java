@@ -18,6 +18,9 @@ public class LibriDAO {
     public void save(Libri libri) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
+        if (libri.getAutore() != null && libri.getAutore().getId() == null) {
+            em.persist(libri.getAutore());
+        }
         em.merge(libri);
         transaction.commit();
         System.out.println("Libro salvato con successo");

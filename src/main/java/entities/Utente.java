@@ -2,7 +2,6 @@ package entities;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
 
 @Entity
 @Table(name = "Utenti")
@@ -14,20 +13,21 @@ public class Utente {
     private String nome;
     private String cognome;
 
-    @Temporal(TemporalType.DATE)
-    private Date dataNascita;
+
+    private String dataNascita;
 
     private String numeroTessera;
 
     public Utente() {
     }
 
-    public Utente(String nome, String cognome, Date dataNascita, String numeroTessera) {
+    public Utente(String nome, String cognome, String dataNascita, String numeroTessera) {
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
         this.numeroTessera = numeroTessera;
     }
+
 
     public Long getId() {
         return id;
@@ -53,11 +53,11 @@ public class Utente {
         this.cognome = cognome;
     }
 
-    public Date getDataNascita() {
+    public String getDataNascita() {
         return dataNascita;
     }
 
-    public void setDataNascita(Date dataNascita) {
+    public void setDataNascita(String dataNascita) {
         this.dataNascita = dataNascita;
     }
 

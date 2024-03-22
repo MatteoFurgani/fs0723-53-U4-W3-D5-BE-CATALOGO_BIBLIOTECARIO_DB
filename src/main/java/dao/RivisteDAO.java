@@ -18,6 +18,9 @@ public class RivisteDAO {
     public void save(Riviste rivista) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
+        if (rivista.getAutore() != null && rivista.getAutore().getId() == null) {
+            em.persist(rivista.getAutore());
+        }
         em.merge(rivista);
         transaction.commit();
         System.out.println("Rivista salvata con successo");

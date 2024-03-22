@@ -8,6 +8,7 @@ import jakarta.persistence.Persistence;
 
 import java.util.List;
 
+
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("catalogobibliotecario");
     public static void main(String[] args) {
@@ -16,7 +17,7 @@ public class Application {
         LibriDAO ld = new LibriDAO(em);
         RivisteDAO rd = new RivisteDAO(em);
 
-        Autore autore1 = new Autore("Mario", "Rossi");
+     /* Autore autore1 = new Autore("Mario", "Rossi");
         Autore autore2 = new Autore("Carla", "Verdi");
         Autore autore3 = new Autore("Luigi", "Bianchi");
         ad.save(autore1);
@@ -36,10 +37,10 @@ public class Application {
         Riviste rivista3 = new Riviste("6", "Rivista 3", 2017, 70, Periodicita.MENSILE, autore3);
         rd.save(rivista1);
         rd.save(rivista2);
-        rd.save(rivista3);
+        rd.save(rivista3); */
 
         //-----------------------------AGGIUNTA ELEMENTO------------------------------------
-        try {
+   /*try {
 
             Autore autore = new Autore("Marco", "Marchi");
 
@@ -61,7 +62,7 @@ public class Application {
 
        //-----------------------------RIMOZIONE ELEMENTO------------------------------------
 
-        try {
+      try {
             Archivio archivio = new Archivio(emf);
 
             String codiceISBN = "L123";
@@ -72,12 +73,12 @@ public class Application {
         } catch (Exception e) {
             System.err.println("Errore durante la rimozione dell'elemento: " + e.getMessage());
         } finally {
-            emf.close();
-        }
+           emf.close();
+        }*/
 
         //-----------------------------RICERCA ELEMENTO PER IBSN------------------------------------
 
-        try {
+      try {
             Archivio archivio = new Archivio(emf);
 
             String codiceISBN = "6";
@@ -91,7 +92,7 @@ public class Application {
                 System.out.println("Nessun elemento trovato nel catalogo con il codice ISBN specificato.");
             }
         } finally {
-            emf.close();
+           //mf.close();
         }
 
         //-----------------------------RICERCA ELEMENTO PER ANNO PUBBLICAZIONE-----------------------------
