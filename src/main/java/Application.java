@@ -6,6 +6,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+import java.util.List;
+
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("catalogobibliotecario");
     public static void main(String[] args) {
@@ -91,6 +93,72 @@ public class Application {
         } finally {
             emf.close();
         }
+
+        //-----------------------------RICERCA ELEMENTO PER ANNO PUBBLICAZIONE-----------------------------
+
+        try {
+            Archivio archivio = new Archivio(emf);
+
+            int annoPubblicazione = 2022;
+
+            List<Pubblicazione> pubblicazioniPerAnno = archivio.ricercaPerAnnoPubblicazione(annoPubblicazione);
+
+            if (!pubblicazioniPerAnno.isEmpty()) {
+                System.out.println("Pubblicazioni trovate per l'anno " + annoPubblicazione + ":");
+                for (Pubblicazione pubblicazione : pubblicazioniPerAnno) {
+                    System.out.println(pubblicazione);
+                }
+            } else {
+                System.out.println("Nessuna pubblicazione trovata per l'anno " + annoPubblicazione);
+            }
+        } finally {
+            // emf.close();
+        }
+
+        //-----------------------------RICERCA ELEMENTO PER AUTORE------------------------------------
+
+        try {
+
+            Archivio archivio = new Archivio(emf);
+
+            String nomeAutore = "Mario";
+            String cognomeAutore = "Rossi";
+
+            List<Pubblicazione> pubblicazioniPerAutore = archivio.ricercaPerAutore(nomeAutore, cognomeAutore);
+
+            if (!pubblicazioniPerAutore.isEmpty()) {
+                System.out.println("Pubblicazioni trovate per l'autore " + nomeAutore + " " + cognomeAutore + ":");
+                for (Pubblicazione pubblicazione : pubblicazioniPerAutore) {
+                    System.out.println(pubblicazione);
+                }
+            } else {
+                System.out.println("Nessuna pubblicazione trovata per l'autore " + nomeAutore + " " + cognomeAutore);
+            }
+        } finally {
+            //emf.close();
+        }
+
+        //-----------------------------RICERCA ELEMENTO PER TITOLO------------------------------------
+
+        try {
+            Archivio archivio = new Archivio(emf);
+
+            String titolo = "Libro 1";
+
+            List<Pubblicazione> risultati = archivio.ricercaPerTitolo(titolo);
+
+            if (risultati.isEmpty()) {
+                System.out.println("Nessuna pubblicazione trovata con il titolo: " + titolo);
+            } else {
+                System.out.println("Pubblicazioni trovate per il titolo: " + titolo);
+                for (Pubblicazione pubblicazione : risultati) {
+                    System.out.println(pubblicazione);
+                }
+            }
+        } finally {
+            emf.close();
+        }
+
 
 
 

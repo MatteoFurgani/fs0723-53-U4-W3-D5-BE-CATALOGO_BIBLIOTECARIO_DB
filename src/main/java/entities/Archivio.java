@@ -3,6 +3,9 @@ package entities;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
+
+import java.util.List;
 
 public class Archivio {
     private final EntityManagerFactory emf;
@@ -10,6 +13,8 @@ public class Archivio {
 
         this.emf = emf;
     }
+
+    //---------------------METODO AGGIUNGI ELEMENTO--------------------
 
     public void aggiungiElementoCatalogo(Pubblicazione pubblicazione) {
         EntityManager em = emf.createEntityManager();
@@ -33,6 +38,8 @@ public class Archivio {
             em.close();
         }
     }
+
+    //---------------------METODO RIMUOVI ELEMENTO--------------------
 
     public void rimuoviElementoCatalogoByISBN(String codiceISBN) {
         EntityManager em = emf.createEntityManager();
@@ -63,6 +70,8 @@ public class Archivio {
         }
     }
 
+    //---------------------METODO RICERCA PER IBSN--------------------
+
     public Pubblicazione ricercaPerISBN(String codiceISBN) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -71,4 +80,49 @@ public class Archivio {
             em.close();
         }
     }
+
+    //---------------------METODO RICERCA ANNO PUBBLICAZIONE--------------------
+
+    public List<Pubblicazione> ricercaPerAnnoPubblicazione(int annoPubblicazione) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Query query = em.createQuery("SELECT p FROM Pubblicazione p WHERE p.annoPubblicazione = :anno", Pubblicazione.class);
+            query.setParameter("anno", annoPubblicazione);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    //---------------------METODO RICERCA PER AUTORI--------------------
+
+    public List<Pubblicazione> ricercaPerAutore(String nomeAutore, String cognomeAutore) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.createQuery("SELECT p FROM Pubblicazione p WHERE p.autore.nome = :nome AND p.autore.cognome = :cognome", Pubblicazione.class)
+                    .setParameter("nome", nomeAutore)
+                    .setParameter("cognome", cognomeAutore)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    //---------------------METODO RICERCA PER TITOLO--------------------
+
+    public List<Pubblicazione> ricercaPerTitolo(String titolo) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.createQuery("SELECT p FROM Pubblicazione p WHERE p.titolo LIKE :titolo", Pubblicazione.class)
+                    .setParameter("titolo", "%" + titolo + "%")
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+
+
+
+
 }
